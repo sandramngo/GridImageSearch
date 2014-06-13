@@ -1,0 +1,106 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    tools:context="${packageName}.${activityClass}" >
+    
+    <TextView
+        android:id="@+id/tvAdvancedSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="5dp"
+        android:text="Advanced search options"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/tvImageSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tvAdvancedSearch"
+        android:layout_margin="10dp"
+        android:text="Image size"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tvColorFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tvImageSize"
+        android:layout_margin="10dp"
+        android:text="Color filter"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tvImageType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tvColorFilter"
+        android:layout_margin="10dp"
+        android:text="Image type"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tvSiteFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tvImageType"
+        android:layout_margin="10dp"
+        android:text="Site filter"
+        android:textSize="18sp" />
+
+    <Spinner
+        android:id="@+id/spinnerImgSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tvImageSize"
+        android:layout_alignRight="@+id/tvAdvancedSearch"
+        android:layout_below="@+id/tvAdvancedSearch"
+        android:layout_toRightOf="@+id/tvImageSize"
+        android:entries="@array/img_size_array"  />
+    <Spinner
+        android:id="@+id/spinnerColorFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tvColorFilter"
+        android:layout_alignRight="@+id/spinnerImgSize"
+        android:layout_below="@+id/spinnerImgSize"
+        android:layout_toRightOf="@+id/tvColorFilter"
+        android:entries="@array/color_array"  />
+    <Spinner
+        android:id="@+id/spinnerImageType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tvImageType"
+        android:layout_alignRight="@+id/spinnerColorFilter"
+        android:layout_below="@+id/spinnerColorFilter"
+        android:layout_toRightOf="@+id/tvImageType" 
+        android:entries="@array/img_type_array" />
+
+    <EditText
+        android:id="@+id/etSiteFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/spinnerImageType"
+        android:layout_below="@+id/spinnerImageType"
+        android:layout_toRightOf="@+id/tvSiteFilter"
+        android:layout_alignBottom="@+id/tvSiteFilter"
+        android:ems="10" >
+    </EditText>
+
+    <Button
+        android:id="@+id/btnSaveFilters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etSiteFilter"
+        android:layout_centerHorizontal="true"
+        android:text="Save Filters"
+        android:onClick="onSaveFilters" />
+
+</RelativeLayout>

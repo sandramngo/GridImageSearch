@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Grid Image Search</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="query_hint">Enter search term</string>
+    <string name="search">Search</string>
+    <string name="title_activity_image_display">ImageDisplayActivity</string>
+    <string name="title_activity_filters">FiltersActivity</string>
+     <string-array name="color_array">  
+     <item>black</item>   
+     <item>blue</item>    
+     <item>gray</item>  
+     <item>Red</item>       
+   </string-array>  
+    <string-array name="img_size_array">  
+     <item>small</item>   
+     <item>medium</item>    
+     <item>large</item>  
+     <item>xlarge</item>       
+   </string-array>  
+    <string-array name="img_type_array">  
+     <item>face</item>   
+     <item>photo</item>    
+     <item>clipart</item>  
+     <item>lineart</item>       
+   </string-array>  
+
+</resources>
