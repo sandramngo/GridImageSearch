@@ -25,5 +25,5 @@
      <item>clipart</item>  
      <item>lineart</item>       
    </string-array>  
-
+	<string name="search_title">Search</string>
 </resources>

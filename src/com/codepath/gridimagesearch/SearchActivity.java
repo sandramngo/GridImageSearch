@@ -6,27 +6,29 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
 
+import com.codepath.gridimagesearch.FiltersDialogFragment.FilterDialogListener;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-public class SearchActivity extends Activity {
-    EditText etQuery;
-    Button btnSearch;
+public class SearchActivity extends FragmentActivity implements FilterDialogListener {
     GridView gvResults;
     ArrayList<ImageResult> imageResults = new ArrayList<>();
     ImageResultArrayAdapter imgResultArrayAdapter;
@@ -34,6 +36,7 @@ public class SearchActivity extends Activity {
     
     int curOffset = 0;
     int requestSize = 8;
+    String query = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,14 +67,16 @@ public class SearchActivity extends Activity {
     }
     
     public void setupViews() {
-        etQuery = (EditText) findViewById(R.id.etQuery);
-        btnSearch = (Button) findViewById(R.id.btnSearch);
         gvResults= (GridView) findViewById(R.id.gvResults);
     }
     
-    public void onImageSearch(View v) {
-        String query = etQuery.getText().toString();
-        
+    public void search(String query) {
+        this.query = query;
+        curOffset = 0;
+        search();
+    }
+    
+    public void search() {
         AsyncHttpClient client = new AsyncHttpClient();
         client.get("https://ajax.googleapis.com/ajax/services/search/images?rsz=" + requestSize + 
                 "&start=" + curOffset + "&v=1.0" + filters.toParams() + "&q=" + Uri.encode(query), new JsonHttpResponseHandler() {
@@ -90,12 +95,10 @@ public class SearchActivity extends Activity {
                    e.printStackTrace(); 
                 }
             }
-        });
+        });   
     }
     
     public void customLoadMoreDataFromApi(int offset) {
-        String query = etQuery.getText().toString();
-        
         AsyncHttpClient client = new AsyncHttpClient();
         client.get("https://ajax.googleapis.com/ajax/services/search/images?rsz=" + requestSize +
                     "&start=" + curOffset + "&v=1.0" + filters.toParams() + "&q=" + Uri.encode(query), new JsonHttpResponseHandler() {
@@ -120,13 +123,32 @@ public class SearchActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager =
+               (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+        
+        searchView.setOnQueryTextListener(new OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return true;
+            }
+            @Override
+            public boolean onQueryTextSubmit(String query) { 
+                search(query);
+                return false; 
+           }
+        });
         return true;
     }
     
     public void onSettings(MenuItem mi) {
-        Intent i = new Intent(this, FiltersActivity.class);
-        i.putExtra("filters", filters);
-        startActivityForResult(i, 45);
+//        Intent i = new Intent(this, FiltersActivity.class);
+//        i.putExtra("filters", filters);
+//        startActivityForResult(i, 45);
+        showFiltersDialog();
     }
     
     @Override
@@ -136,5 +158,21 @@ public class SearchActivity extends Activity {
                 filters = (FilterSettings) data.getSerializableExtra("filters");
             }
         }
+    }
+    
+    private void showFiltersDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        FiltersDialogFragment editNameDialog = FiltersDialogFragment.newInstance("Some Title");
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("filters", filters);
+        editNameDialog.setArguments(bundle);
+        editNameDialog.show(fm, "fragment_edit_name");
+    }
+    
+    @Override
+    public void onSaveFilters(FilterSettings filters) {
+      this.filters = filters;
+      search();
+      curOffset = 0;
     }
 }
