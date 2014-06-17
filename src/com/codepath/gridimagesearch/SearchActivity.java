@@ -19,10 +19,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
-import android.widget.Toast;
 
 import com.codepath.gridimagesearch.FiltersDialogFragment.FilterDialogListener;
 import com.loopj.android.http.AsyncHttpClient;
@@ -33,6 +33,7 @@ public class SearchActivity extends FragmentActivity implements FilterDialogList
     ArrayList<ImageResult> imageResults = new ArrayList<>();
     ImageResultArrayAdapter imgResultArrayAdapter;
     FilterSettings filters = new FilterSettings();
+    FrameLayout background;
     
     int curOffset = 0;
     int requestSize = 8;
@@ -63,7 +64,9 @@ public class SearchActivity extends FragmentActivity implements FilterDialogList
                 customLoadMoreDataFromApi(page); 
                     // or customLoadMoreDataFromApi(totalItemsCount); 
             }
-            });
+        });
+        
+        background = (FrameLayout) findViewById(R.id.backgroundImg);
     }
     
     public void setupViews() {
@@ -74,6 +77,11 @@ public class SearchActivity extends FragmentActivity implements FilterDialogList
         this.query = query;
         curOffset = 0;
         search();
+        if (!query.equals("")) {
+            background.setVisibility(View.INVISIBLE);
+        } else {
+            background.setVisibility(View.VISIBLE);
+        }
     }
     
     public void search() {

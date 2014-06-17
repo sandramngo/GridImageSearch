@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ShareActionProvider;
 
 import com.loopj.android.image.SmartImageView;
 

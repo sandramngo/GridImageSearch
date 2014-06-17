@@ -2,15 +2,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+	android:background="#e8e8e8" 
     tools:context="${packageName}.${activityClass}" >
 
+    <FrameLayout 
+        android:id="@+id/backgroundImg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+	        android:src="@drawable/background_green"
+	        android:scaleType="centerCrop"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"/>
+        <TextView
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:layout_gravity="center"
+		    android:padding="12dip"
+		    android:background="#AA000000"
+		    android:textColor="#ffffffff"
+		    android:shadowColor="#AA000000"
+		    android:shadowDx="-1"
+		    android:shadowDy="1"
+		    android:shadowRadius="0.01"
+		    android:text="Enter a query to start a new search" />
+    </FrameLayout>
     <GridView
         android:id="@+id/gvResults"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/etQuery"
-        android:numColumns="3" >
+        android:layout_centerHorizontal="true"
+        android:numColumns="3"
+        android:padding="10dp"
+        android:verticalSpacing="5dp"
+        android:horizontalSpacing="5dp">
+
     </GridView>
 
 </RelativeLayout>

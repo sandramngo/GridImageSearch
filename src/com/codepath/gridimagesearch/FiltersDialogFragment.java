@@ -3,23 +3,17 @@ package com.codepath.gridimagesearch;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 
-public class FiltersDialogFragment extends DialogFragment implements OnEditorActionListener{
+public class FiltersDialogFragment extends DialogFragment{
     Spinner colorSpinner;
     Spinner sizeSpinner;
     Spinner typeSpinner;
@@ -75,37 +69,42 @@ public class FiltersDialogFragment extends DialogFragment implements OnEditorAct
          return alertDialogBuilder.create();
     }
     
-    public void onSaveFilters(View v) {
-        String colorFilter = colorSpinner.getSelectedItem().toString();
-        String typeFilter = typeSpinner.getSelectedItem().toString();
-        String siteFilter = etSiteFilter.getText().toString();
-        String sizeFilter = sizeSpinner.getSelectedItem().toString();
-        
-        filters.colorFilter = colorFilter;
-        filters.typeFilter = typeFilter;
-        filters.siteFilter = siteFilter;
-        filters.sizeFilter = sizeFilter;
-        
-        Intent i = new Intent();
-        i.putExtra("filters", filters);
-    }
-    
     public void setupViews(View view) {
+        
+        Typeface aller = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Aller_Rg.ttf");
+        TextView imageSize = (TextView) view.findViewById(R.id.tvImageSize);
+        imageSize.setTypeface(aller);
+        
+        TextView tvColor = (TextView) view.findViewById(R.id.tvColorFilter);
+        tvColor.setTypeface(aller);
+        
+        TextView tvType = (TextView) view.findViewById(R.id.tvImageType);
+        tvType.setTypeface(aller);
+        
+        TextView tvSite = (TextView) view.findViewById(R.id.tvSiteFilter);
+        tvSite.setTypeface(aller);
+        
+        TextView tvFiltersTitle = (TextView) view.findViewById(R.id.filtersDialogTitle);
+        tvFiltersTitle.setTypeface(aller);
+        
         filters = (FilterSettings) 
                 getArguments().getSerializable("filters");
         
         colorSpinner = (Spinner) view.findViewById(R.id.spinnerColorFilter);
         ArrayAdapter colorAdapter = (ArrayAdapter) colorSpinner.getAdapter();
+        colorAdapter.setDropDownViewResource(R.layout.custom_spinner);
         int spinnerPosition = colorAdapter.getPosition(filters.colorFilter);
         colorSpinner.setSelection(spinnerPosition);
         
         sizeSpinner = (Spinner) view.findViewById(R.id.spinnerImgSize);
         ArrayAdapter sizeAdapter = (ArrayAdapter) sizeSpinner.getAdapter();
+        sizeAdapter.setDropDownViewResource(R.layout.custom_spinner);
         spinnerPosition = sizeAdapter.getPosition(filters.sizeFilter);
         sizeSpinner.setSelection(spinnerPosition);
         
         typeSpinner = (Spinner) view.findViewById(R.id.spinnerImageType);
         ArrayAdapter typeAdapter = (ArrayAdapter) typeSpinner.getAdapter();
+        typeAdapter.setDropDownViewResource(R.layout.custom_spinner);
         spinnerPosition = typeAdapter.getPosition(filters.typeFilter);
         typeSpinner.setSelection(spinnerPosition);
         
@@ -117,19 +116,5 @@ public class FiltersDialogFragment extends DialogFragment implements OnEditorAct
     
     public interface FilterDialogListener {
         void onSaveFilters(FilterSettings filters);
-    }
-    
-    // Fires whenever the textfield has an action performed
-    // In this case, when the "Done" button is pressed
-    @Override
-    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        if (EditorInfo.IME_ACTION_DONE == actionId) {
-            // Return input text to activity
-            FilterDialogListener listener = (FilterDialogListener) getActivity();
-         //   listener.onFinishEditDialog(mEditText.getText().toString());
-            dismiss();
-            return true;
-        }
-        return false;
     }
 }

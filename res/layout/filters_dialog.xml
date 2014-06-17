@@ -2,7 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/edit_name"
 	android:layout_width="wrap_content" android:layout_height="wrap_content"
-	android:layout_gravity="center" android:orientation="vertical"  >
+	android:layout_gravity="center" android:orientation="vertical"
+	android:background="#ffffff" android:padding="10dp" >
+	<RelativeLayout
+	    android:id="@+id/title"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" 
+	    android:background="@drawable/border">
+		<TextView
+		    android:id="@+id/filtersDialogTitle"
+		    android:text="Filters"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center_horizontal"
+		    android:textAlignment="center"
+		    android:textSize="14sp"
+		    android:textAllCaps="true" />	    
+	</RelativeLayout>
+
 	
     <RelativeLayout
         android:id="@+id/imageSizeFilterRow"
@@ -15,14 +33,15 @@
 			android:layout_height="wrap_content"
 			android:layout_margin="10dp"
 			android:text="Image size"
-			android:textSize="18sp" />
+			android:textSize="12sp" />
 		<Spinner
 	        android:id="@+id/spinnerImgSize"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_alignBottom="@+id/tvImageSize"
+	        android:layout_alignBaseline="@+id/tvImageSize"
 	        android:layout_toRightOf="@+id/tvImageSize"
-	        android:entries="@array/img_size_array"  />
+	        android:entries="@array/img_size_array" 
+	        android:textSize="14sp"  />
     </RelativeLayout>
     
 	<RelativeLayout
@@ -38,14 +57,15 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_margin="10dp"
 	        android:text="Color filter"
-	        android:textSize="18sp" />
+	        android:textSize="12sp" />
 		<Spinner
 	        android:id="@+id/spinnerColorFilter"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_alignBottom="@+id/tvColorFilter"
+	        android:layout_alignBaseline="@+id/tvColorFilter"
 	        android:layout_toRightOf="@+id/tvColorFilter"
-	        android:entries="@array/color_array"  />
+	        android:entries="@array/color_array" 
+	        android:textSize="14sp"  />
  	</RelativeLayout>
 
 	<RelativeLayout
@@ -60,14 +80,15 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_margin="10dp"
 	        android:text="Image type"
-	        android:textSize="18sp" />
+	        android:textSize="12sp" />
         <Spinner
 	        android:id="@+id/spinnerImageType"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_alignBottom="@+id/tvImageType"
+	        android:layout_alignBaseline="@+id/tvImageType"
 	        android:layout_toRightOf="@+id/tvImageType" 
-	        android:entries="@array/img_type_array" />
+	        android:entries="@array/img_type_array" 
+	        android:textSize="14sp" />
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/siteFilterRow"
@@ -80,12 +101,13 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_margin="10dp"
 	        android:text="Site filter"
-	        android:textSize="18sp" />
+	        android:textSize="12sp" />
 		<EditText
 	        android:id="@+id/etSiteFilter"
-	        android:layout_width="wrap_content"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_toRightOf="@+id/tvSiteFilter"
+	        android:textSize="14sp"
 	        android:ems="10" >
     	</EditText>
     </RelativeLayout>
