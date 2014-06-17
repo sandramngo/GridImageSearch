@@ -1,7 +1,7 @@
 GridImageSearch
 ===============
 
-Time spent: 3 hours spent in total
+Time spent: 8 hours spent in total
 
 Completed user stories:
 
