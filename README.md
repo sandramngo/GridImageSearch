@@ -11,11 +11,16 @@ Completed user stories:
  * [x] Required: Subsequent searches will have any filters applied to the search results
  * [x] Required: User can tap on any image in results to see the image full-screen
  * [x] Required: User can scroll down “infinitely” to continue loading more image results (up to 8 pages)
+ * [x] Optional: Use the ActionBar SearchView or custom layout as the query box instead of an EditText
+ * [x] Optional: User can share an image to their friends or email it to themselves
+ * [x] Optional: Replace Filter Settings Activity with a lightweight modal overlay
+ * [x] Optional: Improve the user interface and experiment with image assets and/or styling and coloring
  
 Notes:
 
 Walkthrough of all user stories:
 
-![Video Walkthrough]
+![Video Walkthrough] 
+(GridImageSearch.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
