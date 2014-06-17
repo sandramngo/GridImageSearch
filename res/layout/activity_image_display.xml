@@ -15,5 +15,5 @@
         android:layout_gravity="center"
         android:src="@android:drawable/screen_background_light"
         android:background="#ffffff" />
-
+    
 </RelativeLayout>
