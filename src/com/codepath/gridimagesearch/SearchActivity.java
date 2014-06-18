@@ -6,11 +6,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,7 +35,6 @@ public class SearchActivity extends FragmentActivity implements FilterDialogList
     FilterSettings filters = new FilterSettings();
     FrameLayout background;
     
-    int curOffset = 0;
     int requestSize = 8;
     String query = "";
 
@@ -56,7 +58,10 @@ public class SearchActivity extends FragmentActivity implements FilterDialogList
         gvResults.setOnScrollListener(new EndlessScrollListener() {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
+                    // Triggered only when new data needs to be appended to the list
+                    // Add whatever code is needed to append new items to your AdapterView
                 customLoadMoreDataFromApi(page); 
+                    // or customLoadMoreDataFromApi(totalItemsCount); 
             }
         });
     }
@@ -68,8 +73,7 @@ public class SearchActivity extends FragmentActivity implements FilterDialogList
     
     public void search(String query) {
         this.query = query;
-        this.curOffset = 0;
-        search();
+        search(0);
         if (!query.equals("")) {
             background.setVisibility(View.INVISIBLE);
             gvResults.setVisibility(View.VISIBLE);
@@ -79,23 +83,22 @@ public class SearchActivity extends FragmentActivity implements FilterDialogList
         }
     }
     
-    public void search() {
+    public void search(final int page) {
         AsyncHttpClient client = new AsyncHttpClient();
         client.get("https://ajax.googleapis.com/ajax/services/search/images?rsz=" + requestSize + 
-                "&start=" + curOffset + "&v=1.0" + filters.toParams() + "&q=" + Uri.encode(query), new JsonHttpResponseHandler() {
+                "&start=" + page*requestSize + "&v=1.0" + filters.toParams() + "&q=" + Uri.encode(query), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONObject response) {
                 JSONArray imageJsonResults = null;
                 try {
                     imageJsonResults = response.getJSONObject(
                             "responseData").getJSONArray("results");
-                    if (curOffset == 0) {
-                        imageResults.clear();
-                        imgResultArrayAdapter.notifyDataSetChanged();
+                    if (page == 0) {
+                        imgResultArrayAdapter.clear();
+                        imgResultArrayAdapter.notifyDataSetInvalidated();
                     }
                     imgResultArrayAdapter.addAll(ImageResult
                             .fromJSONArray(imageJsonResults));
-                    curOffset += requestSize;
                 } catch (JSONException e) {
                    e.printStackTrace(); 
                 }
@@ -103,8 +106,8 @@ public class SearchActivity extends FragmentActivity implements FilterDialogList
         });   
     }
     
-    public void customLoadMoreDataFromApi(int offset) {
-        search();
+    public void customLoadMoreDataFromApi(int page) {
+        search(page);
     }
     
     @Override
@@ -153,7 +156,6 @@ public class SearchActivity extends FragmentActivity implements FilterDialogList
     @Override
     public void onSaveFilters(FilterSettings filters) {
       this.filters = filters;
-      this.curOffset = 0;
-      search();
+      search(0);
     }
 }
