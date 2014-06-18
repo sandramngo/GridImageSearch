@@ -36,6 +36,8 @@
         android:verticalSpacing="5dp"
         android:paddingLeft="10dp"
         android:horizontalSpacing="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:background="@drawable/backrepeat"
         android:visibility="invisible">
 

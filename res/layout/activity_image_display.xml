@@ -7,12 +7,14 @@
 
     <com.loopj.android.image.SmartImageView
         android:id="@+id/ivResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
         android:maxWidth="600dp"
         android:layout_alignParentTop="true"
         android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:src="@android:drawable/screen_background_light"
         android:background="#ffffff" />
     
