@@ -1,7 +1,7 @@
 GridImageSearch
 ===============
 
-Time spent: 8 hours spent in total
+Time spent: 12 hours spent in total
 
 Completed user stories:
 
@@ -21,6 +21,6 @@ Notes:
 Walkthrough of all user stories:
 
 ![Video Walkthrough] 
-(GridImageSearch.gif)
+(GridImageSearchWalkthrough.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
