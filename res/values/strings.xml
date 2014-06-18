@@ -37,4 +37,10 @@
      <item>lineart</item>       
    </string-array>  
 	<string name="search_title">Search</string>
+	<string name="filters_title">Filters</string>
+	<string name="image_size">Image size</string>
+	<string name="color_filter">Color filter</string>
+	<string name="image_type">Image type</string>
+	<string name="site_filter">Site filter</string>
+	<string name="enter_query_hint">Enter a query to start a new search</string>
 </resources>

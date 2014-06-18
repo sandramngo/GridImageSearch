@@ -20,20 +20,25 @@ public final class R {
         public static final int background_cave=0x7f020001;
         public static final int background_green=0x7f020002;
         public static final int background_road=0x7f020003;
-        public static final int border=0x7f020004;
-        public static final int ic_launcher=0x7f020005;
-        public static final int ic_search=0x7f020006;
-        public static final int ic_settings=0x7f020007;
-        public static final int ic_share=0x7f020008;
-        public static final int image_border=0x7f020009;
+        public static final int backrepeat=0x7f020004;
+        public static final int border=0x7f020005;
+        public static final int congruent_pentagon=0x7f020006;
+        public static final int crossword=0x7f020007;
+        public static final int ic_launcher=0x7f020008;
+        public static final int ic_search=0x7f020009;
+        public static final int ic_settings=0x7f02000a;
+        public static final int ic_share=0x7f02000b;
+        public static final int image_border=0x7f02000c;
+        public static final int sativa=0x7f02000d;
+        public static final int skulls=0x7f02000e;
     }
     public static final class id {
         public static final int backgroundImg=0x7f09000b;
         public static final int btnSaveFilters=0x7f090009;
         public static final int colorFilterRow=0x7f090011;
-        public static final int edit_name=0x7f09000d;
         public static final int etSiteFilter=0x7f090008;
         public static final int filtersDialogTitle=0x7f09000f;
+        public static final int filters_dialog=0x7f09000d;
         public static final int gvResults=0x7f09000c;
         public static final int imageSizeFilterRow=0x7f090010;
         public static final int imageTypeFilterRow=0x7f090012;
@@ -66,10 +71,16 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f050000;
+        public static final int color_filter=0x7f050009;
+        public static final int enter_query_hint=0x7f05000c;
+        public static final int filters_title=0x7f050007;
         public static final int hello_world=0x7f050001;
+        public static final int image_size=0x7f050008;
+        public static final int image_type=0x7f05000a;
         public static final int query_hint=0x7f050002;
         public static final int search=0x7f050003;
         public static final int search_title=0x7f050006;
+        public static final int site_filter=0x7f05000b;
         public static final int title_activity_filters=0x7f050005;
         public static final int title_activity_image_display=0x7f050004;
     }

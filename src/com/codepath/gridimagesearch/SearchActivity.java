@@ -6,14 +6,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -59,28 +56,26 @@ public class SearchActivity extends FragmentActivity implements FilterDialogList
         gvResults.setOnScrollListener(new EndlessScrollListener() {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                    // Triggered only when new data needs to be appended to the list
-                    // Add whatever code is needed to append new items to your AdapterView
                 customLoadMoreDataFromApi(page); 
-                    // or customLoadMoreDataFromApi(totalItemsCount); 
             }
         });
-        
-        background = (FrameLayout) findViewById(R.id.backgroundImg);
     }
     
     public void setupViews() {
         gvResults= (GridView) findViewById(R.id.gvResults);
+        background = (FrameLayout) findViewById(R.id.backgroundImg);
     }
     
     public void search(String query) {
         this.query = query;
-        curOffset = 0;
+        this.curOffset = 0;
         search();
         if (!query.equals("")) {
             background.setVisibility(View.INVISIBLE);
+            gvResults.setVisibility(View.VISIBLE);
         } else {
             background.setVisibility(View.VISIBLE);
+            gvResults.setVisibility(View.INVISIBLE);
         }
     }
     
@@ -94,11 +89,13 @@ public class SearchActivity extends FragmentActivity implements FilterDialogList
                 try {
                     imageJsonResults = response.getJSONObject(
                             "responseData").getJSONArray("results");
-                    imageResults.clear();
+                    if (curOffset == 0) {
+                        imageResults.clear();
+                        imgResultArrayAdapter.notifyDataSetChanged();
+                    }
                     imgResultArrayAdapter.addAll(ImageResult
                             .fromJSONArray(imageJsonResults));
                     curOffset += requestSize;
-                    Log.d("DEBUG", curOffset + "" );
                 } catch (JSONException e) {
                    e.printStackTrace(); 
                 }
@@ -107,34 +104,13 @@ public class SearchActivity extends FragmentActivity implements FilterDialogList
     }
     
     public void customLoadMoreDataFromApi(int offset) {
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.get("https://ajax.googleapis.com/ajax/services/search/images?rsz=" + requestSize +
-                    "&start=" + curOffset + "&v=1.0" + filters.toParams() + "&q=" + Uri.encode(query), new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(JSONObject response) {
-                JSONArray imageJsonResults = null;
-                try {
-                    imageJsonResults = response.getJSONObject(
-                            "responseData").getJSONArray("results");
-                    imgResultArrayAdapter.addAll(ImageResult
-                            .fromJSONArray(imageJsonResults));
-                    curOffset += requestSize;
-                    Log.d("DEBUG", curOffset + "");
-                } catch (JSONException e) {
-                   e.printStackTrace(); 
-                }
-            }
-        });    
+        search();
     }
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        
-        // Associate searchable configuration with the SearchView
-        SearchManager searchManager =
-               (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView =
                 (SearchView) menu.findItem(R.id.search).getActionView();
         
@@ -153,9 +129,6 @@ public class SearchActivity extends FragmentActivity implements FilterDialogList
     }
     
     public void onSettings(MenuItem mi) {
-//        Intent i = new Intent(this, FiltersActivity.class);
-//        i.putExtra("filters", filters);
-//        startActivityForResult(i, 45);
         showFiltersDialog();
     }
     
@@ -170,17 +143,17 @@ public class SearchActivity extends FragmentActivity implements FilterDialogList
     
     private void showFiltersDialog() {
         FragmentManager fm = getSupportFragmentManager();
-        FiltersDialogFragment editNameDialog = FiltersDialogFragment.newInstance("Some Title");
+        FiltersDialogFragment filtersDialog = FiltersDialogFragment.newInstance("Some Title");
         Bundle bundle = new Bundle();
         bundle.putSerializable("filters", filters);
-        editNameDialog.setArguments(bundle);
-        editNameDialog.show(fm, "fragment_edit_name");
+        filtersDialog.setArguments(bundle);
+        filtersDialog.show(fm, "fragment_filters_dialog");
     }
     
     @Override
     public void onSaveFilters(FilterSettings filters) {
       this.filters = filters;
+      this.curOffset = 0;
       search();
-      curOffset = 0;
     }
 }

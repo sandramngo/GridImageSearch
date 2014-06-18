@@ -1,6 +1,5 @@
-<!-- fragment_edit_name.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/edit_name"
+	android:id="@+id/filters_dialog"
 	android:layout_width="wrap_content" android:layout_height="wrap_content"
 	android:layout_gravity="center" android:orientation="vertical"
 	android:background="#ffffff" android:padding="10dp" >
@@ -12,7 +11,7 @@
 	    android:background="@drawable/border">
 		<TextView
 		    android:id="@+id/filtersDialogTitle"
-		    android:text="Filters"
+		    android:text="@string/filters_title"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_gravity="center_horizontal"
@@ -32,7 +31,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_margin="10dp"
-			android:text="Image size"
+			android:text="@string/image_size"
 			android:textSize="12sp" />
 		<Spinner
 	        android:id="@+id/spinnerImgSize"
@@ -56,7 +55,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentLeft="true"
 	        android:layout_margin="10dp"
-	        android:text="Color filter"
+	        android:text="@string/color_filter"
 	        android:textSize="12sp" />
 		<Spinner
 	        android:id="@+id/spinnerColorFilter"
@@ -79,7 +78,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentLeft="true"
 	        android:layout_margin="10dp"
-	        android:text="Image type"
+	        android:text="@string/image_type"
 	        android:textSize="12sp" />
         <Spinner
 	        android:id="@+id/spinnerImageType"
@@ -100,7 +99,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentLeft="true"
 	        android:layout_margin="10dp"
-	        android:text="Site filter"
+	        android:text="@string/site_filter"
 	        android:textSize="12sp" />
 		<EditText
 	        android:id="@+id/etSiteFilter"
@@ -108,6 +107,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_toRightOf="@+id/tvSiteFilter"
 	        android:textSize="14sp"
+	        android:inputType="textWebEditText"
 	        android:ems="10" >
     	</EditText>
     </RelativeLayout>

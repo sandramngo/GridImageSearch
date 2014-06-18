@@ -3,12 +3,14 @@ package com.codepath.gridimagesearch;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -65,7 +67,6 @@ public class FiltersDialogFragment extends DialogFragment{
          View view = inflater.inflate(R.layout.filters_dialog, null);
          alertDialogBuilder.setView(view);
          setupViews(view);
-         
          return alertDialogBuilder.create();
     }
     
